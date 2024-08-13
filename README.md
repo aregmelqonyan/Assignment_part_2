@@ -12,7 +12,6 @@ git clone https://github.com/aregmelqonyan/Assignment_part_2
 
 ## Navigate to the Project Directory
 
-```
 ```bash
 cd Assignment_part_2
 ```
