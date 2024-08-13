@@ -15,15 +15,17 @@ git clone https://github.com/aregmelqonyan/Assignment_part_2
 ```bash
 cd Assignment_part_2
 ```
+## Install Dependencies
+Create a virtual environment and activate it. Then install the required Python packages using pip:
 
-## For Unix-based Systems (Linux/macOS)
+- **For Unix-based Systems (Linux/macOS)**
 ```bash
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
 
-## For Windows
+- **For Windows**
 ```bash
 python -m venv env
 env\Scripts\activate
