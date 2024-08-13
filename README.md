@@ -2,6 +2,7 @@
 
 This repository contains the code for the Assignment Part 2.
 
+
 ## Clone the Repository
 
 First, clone the repository to your local machine using the following command:
@@ -10,11 +11,14 @@ First, clone the repository to your local machine using the following command:
 git clone https://github.com/aregmelqonyan/Assignment_part_2
 ```
 
+
 ## Navigate to the Project Directory
 
 ```bash
 cd Assignment_part_2
 ```
+
+
 ## Install Dependencies
 Create a virtual environment and activate it. Then install the required Python packages using pip:
 
