@@ -1,0 +1,114 @@
+1. Cheap Crowdfunding Problem
+Solution Explanation:
+
+    The function aims to find the smallest positive integer that has not yet been
+    pledged. The approach leverages the following steps:
+
+    1. Convert the pledge_list to a set:
+        - The main reason for converting the list to a set is to optimize the look-up time 
+            for checking whether a particular amount has already been pledged. In Python, 
+            lookups in a set take average O(1) time, while lookups in a list take O(n) time.
+        - Since we only care about whether an amount is present or not (and not about the 
+            order or frequency of elements), using a set is more efficient.
+
+    2. Initialize 'least_amount' to 1:
+        - Start with the smallest possible pledge amount, which is 1.
+
+    3. Iterate through increasing values of 'least_amount':
+        - If the current 'least_amount' is found in the set, increment it and continue checking.
+        - As soon as we find a 'least_amount' that is not in the set, this is the smallest 
+            unique pledge amount that we can use.
+
+    4. Return 'least_amount':
+        - This is the smallest amount that hasn't been pledged yet, ensuring the pledge is valid
+            and fulfills the condition of being unique.
+
+    Example:
+    If pledge_list = [1, 8, 7, 9], the function will return 2, as it's the smallest positive 
+    integer that is not in the list.
+
+2. Extract Titles from RSS feed
+Solution Explanation:
+
+    This Python script is designed to extract and print headlines from an RSS feed,
+    specifically from Google News.
+    
+    1. Importing Libraries:
+        . BeautifulSoup is a library from bs4 that allows parsing of HTML and XML documents.
+          It's particularly useful for web scraping.
+        . BeautifulSoup uses lxml to parse the XML content. lxml is a powerful library for 
+          processing XML and HTML documents.
+        . requests is a library for making HTTP requests. It simplifies sending HTTP requests to
+          web pages or APIs and handles the response.
+
+    2. Parsing the RSS Feed with BeautifulSoup:
+            The response text (which is XML in this case) is passed to BeautifulSoup for parsing.
+            The features="xml" argument tells BeautifulSoup to use the XML parser.
+
+    3. Extracting the Titles:
+        . soup.find_all("item") finds all <item> elements in the XML, which represent individual news articles.
+        . The list comprehension [item.title.text for item in soup.find_all("item")] extracts the text 
+          content of the <title> tags within each <item>. These titles are stored in the titles list.
+        . The function returns the list of titles, which can then be printed or further processed.
+
+3. Streaming Payments Processor
+Solution Explanation:
+
+    1. Custom Wrapper Class (Storage):
+        . The code defines a custom class ChecksumStorageWrapper that wraps the original storage
+          instance obtained from get_payments_storage().
+        . This class adds a checksum attribute, which is initialized to 0.
+    
+    2. Writing Data, Calculating Checksum and getting the checksum:
+        . The write() method of ChecksumStorageWrapper takes the data (which is a sequence of bytes),
+          sums the bytes using sum(data), and adds this sum to the checksum attribute.
+        . After calculating the checksum for the data, it writes the data to the underlying storage.
+        . The get_checksum() method returns the final value of the checksum after all data has been
+          written to the storage.
+    
+    3. Using the Wrapper in process_payments():
+
+        . The process_payments() function creates an instance of ChecksumStorageWrapper by wrapping
+          the storage object obtained from get_payments_storage().
+        . The stream_payments_to_storage() function is called with this wrapped storage, which writes data 
+          to the storage while calculating the checksum simultaneously.
+        . Finally, the checksum is printed using the print() function.
+    
+
+    Restrictions:
+        . Single Call to Each Function: The solution respects the requirement of only making one call
+          to get_payments_storage() and stream_payments_to_storage().
+        . No Temporary Storage: The checksum is calculated on the fly, without the need for temporary 
+          storage or holding all data in memory.
+        . Preserving Functionality: The original functionality of streaming payments to storage is
+          preserved, while adding the new requirement of calculating and printing the checksum.
+
+
+4. Streaming Payments Processor, two vendors edition.
+Solution Explanation:
+
+    1. payment_generator Function:
+
+        . Purpose: Acts as an intermediary that accumulates payments in a queue and yields them 
+          one by one when store_payments() requests them.
+        . Queue (payments): This list temporarily holds payments as they are streamed in by
+          stream_payments() and before they are consumed by store_payments().
+        . Callback (add_amount): A nested function inside payment_generator that stream_payments()
+          will call to add each payment amount to the payment_queue.
+        . Streaming Payments: The stream_payments(add_amount) call triggers the streaming process,
+          filling up payments queue with payments.
+        . Yielding Payments: The while loop keeps yielding payments from the queue until all payments are
+          processed and the queue is empty.
+
+    2. Connecting the Functions:
+
+        The payment_generator() function is passed as an argument to store_payments(),
+        effectively bridging the gap between the two vendor functions.
+    
+    Restriction:
+        . Single Call Limitation: The solution makes only one call each to stream_payments()
+          and store_payments(), as required.
+        . No Disk Usage: The solution avoids using disk storage by keeping payments in memory
+          within the payment_queue.
+        . Limited Memory Handling: By yielding payments one at a time and immediately removing
+          them from the queue, the memory usage remains controlled, adhering to the system's limitations.
